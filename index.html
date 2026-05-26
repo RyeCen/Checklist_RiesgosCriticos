@@ -1,0 +1,821 @@
+<!DOCTYPE html><!DOCTYPE <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checklist Riesgos Críticos</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f3f4f6;
+      color: #1f2937;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      margin: 0 0 8px 0;
+      font-size: 28px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    h3 {
+      margin-top: 18px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      background: #1f4e79;
+      color: white;
+      padding: 10px 12px;
+      border-radius: 10px;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    @media (min-width: 768px) {
+      .row {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      font-size: 14px;
+      background: #fff;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .rc-buttons {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    @media (min-width: 768px) {
+      .rc-buttons {
+        grid-template-columns: repeat(5, 1fr);
+      }
+    }
+
+    .rc-btn {
+      border: none;
+      background: #e5e7eb;
+      color: #111827;
+      padding: 12px;
+      font-weight: bold;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .rc-btn.active {
+      background: #1f4e79;
+      color: white;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      margin-bottom: 8px;
+      background: #fff;
+    }
+
+    .check-item input {
+      margin-top: 3px;
+      transform: scale(1.2);
+    }
+
+    .progress-wrap {
+      margin-top: 14px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 14px;
+      background: #e5e7eb;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: #16a34a;
+      transition: width 0.2s;
+    }
+
+    .progress-text {
+      margin-top: 8px;
+      font-weight: bold;
+      font-size: 18px;
+      color: #16a34a;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    @media (min-width: 768px) {
+      .actions {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .action-btn {
+      border: none;
+      padding: 14px;
+      font-weight: bold;
+      border-radius: 12px;
+      cursor: pointer;
+      color: white;
+      font-size: 14px;
+    }
+
+    .btn-save { background: #1d4ed8; }
+    .btn-finish { background: #16a34a; }
+    .btn-export { background: #111827; }
+    .btn-clear { background: #b91c1c; }
+
+    .estado {
+      margin-top: 10px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .small {
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    .muted-title {
+      font-size: 14px;
+      color: #475569;
+      margin-top: 6px;
+    }
+
+    .vendor-info {
+      margin-top: 8px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="card">
+      <h1>Checklist Riesgos Críticos</h1>
+      <div class="small">Versión web para celular / PC. Funciona en navegador, guarda local y registra en Google Sheets.</div>
+    </div>
+
+    <div class="card">
+      <div class="row">
+        <div>
+          <label for="supervisor">Supervisor</label>
+          <select id="supervisor">
+            <option value="">Selecciona supervisor</option>
+            <option>CRUZ ALFARO HILDER GOFREDO</option>
+            <option>LAZO VALENCIA RICHARD ROGER</option>
+            <option>TORRES VILLANUEVA JULIO ENRIQUE MARTIN</option>
+            <option>QUISPITIRA ZERON JORGE ERNESTO</option>
+            <option>MOSCOSO ORTEGA LINO</option>
+            <option>COLQUE HUILLCA WILBERT</option>
+            <option>BURGA VILLANUEVA JEFFERSON LENNIN</option>
+            <option>MALDONADO PAREDES JUAN ANTONIO</option>
+            <option>GARCIA MONCADA ENRIQUE ANTONIO</option>
+            <option>LEIVA MANCHA JOSE VALERIO</option>
+            <option>VALENZUELA LIZAMA CESAR DANIEL</option>
+            <option>ALAYA CRUZADO LUIS PRIMITIVO</option>
+            <option>CANDIOTTI CAMPOS JEAN MARCO</option>
+            <option>SCHUTTE MARGARITO MIGUEL ANGEL</option>
+            <option>CASTILLO CALIXTO WALTER AUGUSTO</option>
+            <option>CHACON CARDENAS DAVID BENJAMIN</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="fecha">Fecha</label>
+          <input type="date" id="fecha">
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:12px;">
+        <div>
+          <label for="vendor">Vendor de operador</label>
+          <input type="text" id="vendor" placeholder="Ingresa vendor">
+          <div id="vendorInfo" class="vendor-info"></div>
+        </div>
+
+        <div>
+          <label for="observaciones">Observaciones</label>
+          <textarea id="observaciones" placeholder="Observaciones de la verificación"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <label>Selecciona el RC</label>
+      <div class="rc-buttons">
+        <button class="rc-btn" id="btn-RC07" onclick="selectRC('RC07')">RC07</button>
+        <button class="rc-btn" id="btn-RC-11" onclick="selectRC('RC-11')">RC-11</button>
+        <button class="rc-btn" id="btn-RC-12" onclick="selectRC('RC-12')">RC-12</button>
+        <button class="rc-btn" id="btn-RC-13" onclick="selectRC('RC-13')">RC-13</button>
+        <button class="rc-btn" id="btn-RC-23" onclick="selectRC('RC-23')">RC-23</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 id="tituloRC">RC07 ACCIDENTE CON EQUIPO MINERO</h2>
+      <div class="muted-title" id="detalleRC">Marca los controles críticos verificados.</div>
+
+      <div class="progress-wrap">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text" id="resultado">Cumplimiento: 0.0%</div>
+      </div>
+
+      <div id="contenido" style="margin-top:16px;"></div>
+    </div>
+
+    <div class="card">
+      <div class="actions">
+        <button class="action-btn btn-save" onclick="guardarLocal()">GUARDAR LOCAL</button>
+        <button class="action-btn btn-finish" onclick="finalizar()">FINALIZAR</button>
+        <button class="action-btn btn-export" onclick="exportarCSV()">EXPORTAR CSV</button>
+        <button class="action-btn btn-clear" onclick="limpiarHistorial()">LIMPIAR HISTORIAL</button>
+      </div>
+
+      <div class="estado" id="estado"></div>
+    </div>
+
+  </div>
+
+  <script>
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx2XU5y3NCQ6YCgizSOtuxBMpHdPCWgeU5shXdQqVwbTHJDfO3DrpK9AEA5wjoRv4K7/exec";
+
+    // Tabla vendor -> nombre SOLO para validación visual en la app
+    const VENDORS = {
+      "1414": "ACUÑA ESPINOZA AMERICO",
+      "3532": "ALFARO FRANCISCO GREGORIO OMAR",
+      "2147": "CERPA MOGOLLON MARCELINO",
+      "3014": "DIAZ LAGUNA FULGENCIO MARCELINO",
+      "5463": "GARAY LEYVA HOMER HERMILIO",
+      "4099": "GUERRA VERAMENDI HUGO JORDAN",
+      "2033": "LEYVA RODRIGUEZ ROBERT ANTONIO",
+      "3849": "MALLQUI ROMERO ANTIMOGENES JUAN",
+      "3228": "ORELLANA GUTIERREZ ENRIQUE FREDDY",
+      "9129": "REVILLA APAZA PAUL GUSTAVO",
+      "9502": "REYES TAMAYO FRANCISCO MIGUEL",
+      "2614": "RIVERA SOLIS WILIAN MAXIMO",
+      "1591": "ROJAS DIAS SABINO",
+      "4560": "ROJAS HUAYTA FABIO EMERZON",
+      "9128": "SALAZAR TRUJILLO MILEZA ERIKA",
+      "5851": "SOLIS NARRO MIGUEL PABLO",
+      "3899": "VELASQUEZ GARAY GREGORIO JOSE",
+      "1355": "ZURITA MORALES YOVANE",
+      "4435": "AMADO CHAVEZ DIONICIO EFRAIN",
+      "6330": "ARAUJO AMADO JOSUE REMIGIO",
+      "3019": "BRIOSO GARAY EMILIANO MARTIN",
+      "6270": "CABRERA ROMERO ANTONIO",
+      "3361": "CASO PUENTE YANETT MARLENI",
+      "5925": "CHAVEZ PALACIOS WALTER CARLOS",
+      "2314": "CHOMBA GALVEZ WALTER HUGO",
+      "5865": "GUILLEN MEDINA YURI DIETER",
+      "1593": "HUAMANCHA VELASQUE EDWIN",
+      "5404": "JUSTINIANO DIONICIO VICTOR FELIX",
+      "6211": "RAMIREZ CHINCHAY HECTOR HERNAN",
+      "9783": "RAMIREZ PEREZ VICTOR MANUEL",
+      "3687": "VELASQUEZ LAINO FERNANDO",
+      "5426": "ANDRADE MEDINA LUIS CARLESI",
+      "10000": "APOMAYTA MARCA WILBER",
+      "6252": "ASTOLINGON DIAZ JORGE FRANCISCO",
+      "2145": "CASTRO RIPALDE EDGAR GERMAN",
+      "5712": "CONDORI CONDORCALLO RENE EDGAR",
+      "2021": "CUEVA QUILLUYA MIGUEL HUGO",
+      "1201": "CULQUI RAMOS MEDARDO",
+      "1264": "CHALCO QUISPE FELIX",
+      "3174": "CHANG BRICEÑO JAVIER ALBERTO",
+      "2949": "CHAVEZ ESPINOZA EDGARDO JUVENAL",
+      "5129": "GARAY ANAYA ELIAS GERARDO",
+      "2909": "MARIÑAS VERGARAY EDILES FRANCISCO",
+      "9336": "MENDOZA CASTILLO ESTEFANY LIDYA",
+      "10005": "MONTOYA FIGUEROA JOSE",
+      "1236": "OBREGON RAMIREZ DAVID MARDOQUEO",
+      "4509": "PEÑA HUACCHO DARIO WILDER",
+      "5816": "RUBINA BUSTILLOS WILDER MANFRED",
+      "5297": "SANDILLAN REYES HERNAN TITO",
+      "3674": "TRUJILLO ADAN CLEMENTE GREGORIO",
+      "2055": "TUPACYUPANQUI JAEN URIEL",
+      "9152": "AGUIRRE CRUZ DEYMID LUIS",
+      "3607": "AMADO ZORRILLA LINCOLN LININ",
+      "1235": "ANAYA GUERRA FELIX AGODONIO",
+      "4301": "AQUINO MAURICIO TEODORICO MARIN",
+      "4468": "CAMILOAGA DIAZ ELMER HUMBERTO",
+      "2898": "CARDENAS GUIÑO MARCO ANTONIO",
+      "1778": "DOMINGUEZ MACHADO DADDI DAIRIN",
+      "6306": "DUEÑAS ZORRILLA CESAR URIBE",
+      "2029": "GOMEZ RIVERA ROBERTO ADEMIR",
+      "4889": "GUERRA SALAZAR VICTOR JUAN",
+      "7641": "HERRERA PONCE CESAR JULIO",
+      "5723": "MARQUEZ PALMA PASION",
+      "3905": "OBREGON HUAYTA BASILIO WALTER",
+      "1277": "ORE CARRASCO DANIEL HUGO",
+      "9758": "RAMOS CHURA DORA YESENIA",
+      "3353": "SANJINEZ PAREDES DIEGO MARTIN",
+      "2173": "TRUJILLO LOARTE JULIAN LEOCADIO",
+      "5457": "VEGA RAMIREZ ULISES",
+      "3145": "ZERPA ESPINOZA MARCO ANTONIO"
+    };
+
+    const RC_DATA = {
+      "RC07": {
+        titulo: "RC07 ACCIDENTE CON EQUIPO MINERO",
+        adicionales: [],
+        preventivos: [
+          "Protocolo de comunicación en área de interacción.",
+          "Sistema de Aproximación (CAS) y Sistema Antifatiga (SAF).",
+          "Autorización de operación y manejo de equipos.",
+          "Segregación y señalización en áreas de interacción.",
+          "Diseño y control de mejoramiento de vías.",
+          "Mantenimiento programado de sistemas críticos: frenos, dirección, eléctrico -electrónico y neumáticos.",
+          "Gestión de fatiga y somnolencia."
+        ],
+        mitigantes: [
+          "Brigadas de respuesta a emergencias (comunicación, equipamiento y competencias).",
+          "Parachoques extendidos."
+        ]
+      },
+
+      "RC-11": {
+        titulo: "RC-11 ACCIDENTE CON EXPLOSIVOS",
+        adicionales: [],
+        preventivos: [
+          "Detección y desactivación del tiro cortado.",
+          "Comunicación del programa de voladura",
+          "Segregación y señalización de la zona de voladura.",
+          "Evacuación de área del personal y equipos por voladura.",
+          "Cumplimiento de requisitos para el almacenamiento de explosivos.",
+          "Operador autorizado para la manipulación de explosivos.",
+          "Cumplimiento de requisitos para transporte interno de explosivos.",
+          "Cumplimiento con el diseño de perforación y voladura.",
+          "Restricción de trabajos de interfase en plataformas superiores a malla cargada."
+        ],
+        mitigantes: [
+          "Detección y desactivación del tiro cortado.",
+          "Brigadas de respuesta a emergencias (comunicación, equipamiento y competencias)."
+        ]
+      },
+
+      "RC-12": {
+        titulo: "RC-12 ATROPELLO DE PERSONAL POR VEHICULOS O EQUIPOS EN TRANSITO",
+        adicionales: [],
+        preventivos: [
+          "Segregación en áreas de interacción.",
+          "Mantenimiento programado de sistemas críticos: frenos, dirección, eléctrico - electrónico y neumáticos.",
+          "Parqueo de vehículos o bloqueo de equipos en mantenimiento.",
+          "Protocolo de comunicación en áreas de interacción.",
+          "Autorización de conducción."
+        ],
+        mitigantes: [
+          "Brigadas de respuesta a emergencia (comunicación, equipamiento y competencias)."
+        ]
+      },
+
+      "RC-13": {
+        titulo: "RC-13 ACCIDENTE POR CAIDA DE ROCAS",
+        adicionales: [],
+        preventivos: [
+          "Control del Diseño Geotécnico.",
+          "Monitoreo geotécnico en zonas críticas.",
+          "Inspecciones geotécnicas periódicas.",
+          "Identificación, señalización y segregación de sectores críticos e inestables.",
+          "Plano de riesgos geotécnicos.",
+          "Diseño y ejecución de perforación, voladura para control de taludes y fly rocks.",
+          "Ejecución/operación y cumplimiento del diseño geotécnico."
+        ],
+        mitigantes: [
+          "Estructuras de protección."
+        ]
+      },
+
+      "RC-23": {
+        titulo: "RC-23 CAIDA DE RAYOS- TORMENTAS ELECTRICAS",
+        adicionales: [
+          "Capacitación a personal en la detección visual de tormentas eléctricas, niveles de alerta, uso de refugios y uso de detectores portátiles.",
+          "Uso de epps específicos en áreas remotas"
+        ],
+        preventivos: [
+          "Sistema radial y protocolo de comunicación.",
+          "Refugios certificados y señalizados en zonas de trabajo expuestas.",
+          "Calibración y mantenimiento de sensores fijos y portátiles.",
+          "Verificación previa de condiciones meteorológicas y operativas para desplazamientos en zonas remotas."
+        ],
+        mitigantes: [
+          "Brigadas de respuesta a emergencias (comunicación, equipamiento y competencias).",
+          "Pararrayos en áreas expuestas a descargas atmosféricas."
+        ]
+      }
+    };
+
+    let rcActual = "RC07";
+    let checks = {};
+
+    function getTodayISO() {
+      const d = new Date();
+      const month = String(d.getMonth() + 1).padStart(2, "0");
+      const day = String(d.getDate()).padStart(2, "0");
+      return `${d.getFullYear()}-${month}-${day}`;
+    }
+
+    function initChecks() {
+      checks = {};
+      Object.keys(RC_DATA).forEach(rc => {
+        checks[rc] = {
+          adicionales: RC_DATA[rc].adicionales.map(() => false),
+          preventivos: RC_DATA[rc].preventivos.map(() => false),
+          mitigantes: RC_DATA[rc].mitigantes.map(() => false)
+        };
+      });
+    }
+
+    function setEstado(texto, color = "#166534") {
+      const estado = document.getElementById("estado");
+      estado.textContent = texto;
+      estado.style.color = color;
+    }
+
+    function updateButtons() {
+      Object.keys(RC_DATA).forEach(rc => {
+        const btn = document.getElementById("btn-" + rc);
+        if (btn) {
+          if (rc === rcActual) {
+            btn.classList.add("active");
+          } else {
+            btn.classList.remove("active");
+          }
+        }
+      });
+    }
+
+    function selectRC(rc) {
+      rcActual = rc;
+      renderRC();
+      updateButtons();
+    }
+
+    function renderSection(nombre, seccion) {
+      const lista = RC_DATA[rcActual][seccion];
+      if (!lista || lista.length === 0) return "";
+
+      let html = `<h3>${nombre}</h3>`;
+      lista.forEach((texto, index) => {
+        const checked = checks[rcActual][seccion][index] ? "checked" : "";
+        html += `
+          <label class="check-item">
+            <input type="checkbox" ${checked} onchange="toggleCheck('${seccion}', ${index})">
+            <span>${texto}</span>
+          </label>
+        `;
+      });
+
+      return html;
+    }
+
+    function renderRC() {
+      document.getElementById("tituloRC").textContent = RC_DATA[rcActual].titulo;
+      const contenido = document.getElementById("contenido");
+
+      contenido.innerHTML =
+        renderSection("ADICIONALES", "adicionales") +
+        renderSection("PREVENTIVOS", "preventivos") +
+        renderSection("MITIGANTES", "mitigantes");
+
+      calcular();
+    }
+
+    function toggleCheck(seccion, index) {
+      checks[rcActual][seccion][index] = !checks[rcActual][seccion][index];
+      calcular();
+    }
+
+    function getCurrentFlatChecks() {
+      return [
+        ...checks[rcActual].adicionales,
+        ...checks[rcActual].preventivos,
+        ...checks[rcActual].mitigantes
+      ];
+    }
+
+    function calcular() {
+      const lista = getCurrentFlatChecks();
+      const total = lista.length;
+      let marcados = 0;
+
+      lista.forEach(v => {
+        if (v) marcados++;
+      });
+
+      const pct = total > 0 ? ((marcados / total) * 100) : 0;
+
+      document.getElementById("resultado").textContent = "Cumplimiento: " + pct.toFixed(1) + "%";
+      document.getElementById("progressFill").style.width = pct.toFixed(1) + "%";
+
+      return {
+        porcentaje: pct.toFixed(1),
+        marcados: marcados,
+        total: total
+      };
+    }
+
+    function getSupervisor() {
+      return document.getElementById("supervisor").value.trim();
+    }
+
+    function getVendor() {
+      return document.getElementById("vendor").value.trim();
+    }
+
+    function getFecha() {
+      return document.getElementById("fecha").value;
+    }
+
+    function getObservaciones() {
+      return document.getElementById("observaciones").value.trim();
+    }
+
+    function obtenerNombreVendor(vendor) {
+      return VENDORS[vendor] || null;
+    }
+
+    function actualizarVendorInfo() {
+      const vendor = getVendor();
+      const info = document.getElementById("vendorInfo");
+
+      if (!vendor) {
+        info.textContent = "";
+        return;
+      }
+
+      const nombre = obtenerNombreVendor(vendor);
+      if (nombre) {
+        info.textContent = "Operador encontrado: " + nombre;
+        info.style.color = "#166534";
+      } else {
+        info.textContent = "Vendor no encontrado";
+        info.style.color = "#b91c1c";
+      }
+    }
+
+    function getControlesAprendidosYFaltantes() {
+      const aprendidos = [];
+      const faltantes = [];
+
+      ["adicionales", "preventivos", "mitigantes"].forEach(seccion => {
+        RC_DATA[rcActual][seccion].forEach((control, i) => {
+          if (checks[rcActual][seccion][i]) {
+            aprendidos.push(control);
+          } else {
+            faltantes.push(control);
+          }
+        });
+      });
+
+      return {
+        aprendidos: aprendidos.join(" | "),
+        faltantes: faltantes.join(" | ")
+      };
+    }
+
+    async function enviarAGoogle(payload) {
+      try {
+        await fetch(GOOGLE_SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+          },
+          body: JSON.stringify(payload)
+        });
+        console.log("✅ Enviado correctamente a Sheets");
+      } catch (error) {
+        console.error("❌ Error enviando:", error);
+      }
+    }
+
+    function guardarLocal() {
+      const supervisor = getSupervisor();
+      const vendor = getVendor();
+
+      if (!supervisor) {
+        setEstado("Selecciona un supervisor.", "#b91c1c");
+        return;
+      }
+
+      if (!vendor) {
+        setEstado("Ingresa el vendor del operador.", "#b91c1c");
+        return;
+      }
+
+      const nombre = obtenerNombreVendor(vendor);
+      if (!nombre) {
+        setEstado("Vendor no encontrado", "#b91c1c");
+        return;
+      }
+
+      const calc = calcular();
+      const controles = getControlesAprendidosYFaltantes();
+
+      let historial = JSON.parse(localStorage.getItem("checklist_historial") || "[]");
+
+      historial.push({
+        FechaRegistro: new Date().toLocaleString(),
+        FechaFormulario: getFecha(),
+        Supervisor: supervisor,
+        Vendor: vendor,
+        Riesgo: RC_DATA[rcActual].titulo,
+        ControlesAprendidos: controles.aprendidos,
+        ControlesFaltantes: controles.faltantes,
+        Cumplimiento: calc.porcentaje,
+        Observaciones: getObservaciones()
+      });
+
+      localStorage.setItem("checklist_historial", JSON.stringify(historial));
+
+      setEstado("Registro guardado localmente.");
+    }
+
+    async function finalizar() {
+      const supervisor = getSupervisor();
+      const vendor = getVendor();
+
+      if (!supervisor) {
+        setEstado("Selecciona un supervisor.", "#b91c1c");
+        return;
+      }
+
+      if (!vendor) {
+        setEstado("Ingresa el vendor del operador.", "#b91c1c");
+        return;
+      }
+
+      const nombre = obtenerNombreVendor(vendor);
+      if (!nombre) {
+        setEstado("Vendor no encontrado", "#b91c1c");
+        return;
+      }
+
+      const calc = calcular();
+      const controles = getControlesAprendidosYFaltantes();
+
+      const payload = {
+        supervisor: supervisor,
+        vendor: vendor,
+        riesgo: RC_DATA[rcActual].titulo,
+        controlesAprendidos: controles.aprendidos,
+        controlesFaltantes: controles.faltantes,
+        porcentaje: calc.porcentaje,
+        observaciones: getObservaciones()
+      };
+
+      try {
+        // Guardar también localmente
+        let historial = JSON.parse(localStorage.getItem("checklist_historial") || "[]");
+        historial.push({
+          FechaRegistro: new Date().toLocaleString(),
+          FechaFormulario: getFecha(),
+          Supervisor: supervisor,
+          Vendor: vendor,
+          Riesgo: RC_DATA[rcActual].titulo,
+          ControlesAprendidos: controles.aprendidos,
+          ControlesFaltantes: controles.faltantes,
+          Cumplimiento: calc.porcentaje,
+          Observaciones: getObservaciones()
+        });
+        localStorage.setItem("checklist_historial", JSON.stringify(historial));
+
+        // Enviar a Google Sheets
+        await enviarAGoogle(payload);
+
+        limpiarFormulario();
+        setEstado("✅ Registrado correctamente y listo para un nuevo ingreso.");
+      } catch (error) {
+        console.error(error);
+        setEstado("❌ Error al enviar el registro.", "#b91c1c");
+      }
+    }
+
+    function limpiarFormulario() {
+      document.getElementById("supervisor").value = "";
+      document.getElementById("vendor").value = "";
+      document.getElementById("vendorInfo").textContent = "";
+      document.getElementById("fecha").value = getTodayISO();
+      document.getElementById("observaciones").value = "";
+      initChecks();
+      rcActual = "RC07";
+      renderRC();
+      updateButtons();
+    }
+
+    function limpiarHistorial() {
+      localStorage.removeItem("checklist_historial");
+      setEstado("Historial local eliminado.", "#b91c1c");
+    }
+
+    function exportarCSV() {
+      const supervisor = getSupervisor();
+      const vendor = getVendor();
+
+      if (!supervisor) {
+        setEstado("Selecciona un supervisor.", "#b91c1c");
+        return;
+      }
+
+      if (!vendor) {
+        setEstado("Ingresa el vendor del operador.", "#b91c1c");
+        return;
+      }
+
+      const nombre = obtenerNombreVendor(vendor);
+      if (!nombre) {
+        setEstado("Vendor no encontrado", "#b91c1c");
+        return;
+      }
+
+      const calc = calcular();
+      const controles = getControlesAprendidosYFaltantes();
+
+      const vendorSeguro = vendor.replace(/[\\/:*?"<>|]/g, "").replace(/\s+/g, "_");
+
+      let csv = "";
+      csv += "Supervisor,Vendor,Tipo de riesgo evaluado,Controles aprendidos,Controles faltantes,% de eficacia,Observaciones\n";
+      csv += `"${supervisor}","${vendor}","${RC_DATA[rcActual].titulo.replace(/"/g, '""')}","${controles.aprendidos.replace(/"/g, '""')}","${controles.faltantes.replace(/"/g, '""')}","${calc.porcentaje}%","${getObservaciones().replace(/"/g, '""')}"\n`;
+
+      const blob = new Blob(["\ufeff" + csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "Checklist_" + vendorSeguro + ".csv";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+
+      setEstado("Archivo exportado: Checklist_" + vendorSeguro + ".csv");
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      document.getElementById("fecha").value = getTodayISO();
+      document.getElementById("vendor").addEventListener("input", actualizarVendorInfo);
+      initChecks();
+      renderRC();
+      updateButtons();
+    });
+  </script>
+</body>
+</html>
+``
+<html lang="es">
+<head>
